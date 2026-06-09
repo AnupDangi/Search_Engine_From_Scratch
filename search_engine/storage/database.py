@@ -1,4 +1,5 @@
 import sqlite3
+from threading import RLock
 
 from storage.schema import DOCUMENTS_TABLE
 
@@ -11,20 +12,24 @@ class Database:
     ):
 
         self.conn = sqlite3.connect(
-            db_path
+            db_path,
+            check_same_thread=False
         )
 
         self.cursor = self.conn.cursor()
+        self.lock = RLock()
 
         self.initialize()
 
     def initialize(self):
 
-        self.cursor.execute(
-            DOCUMENTS_TABLE
-        )
+        with self.lock:
 
-        self.conn.commit()
+            self.cursor.execute(
+                DOCUMENTS_TABLE
+            )
+
+            self.conn.commit()
 
     def insert_document(
         self,
@@ -34,53 +39,59 @@ class Database:
         html_file
     ):
 
-        self.cursor.execute(
-            """
-            INSERT OR REPLACE
-            INTO documents
-            (
-                url,
-                title,
-                content,
-                html_file
-            )
-            VALUES
-            (?, ?, ?, ?)
-            """,
-            (
-                url,
-                title,
-                content,
-                html_file
-            )
-        )
+        with self.lock:
 
-        self.conn.commit()
+            self.cursor.execute(
+                """
+                INSERT OR REPLACE
+                INTO documents
+                (
+                    url,
+                    title,
+                    content,
+                    html_file
+                )
+                VALUES
+                (?, ?, ?, ?)
+                """,
+                (
+                    url,
+                    title,
+                    content,
+                    html_file
+                )
+            )
+
+            self.conn.commit()
 
     def count_documents(self):
         
-        self.cursor.execute(
-            """
-            SELECT COUNT(*)
-            FROM documents
-            """
-        )
+        with self.lock:
+            
+            self.cursor.execute(
+                """
+                SELECT COUNT(*)
+                FROM documents
+                """
+            )
 
-        return self.cursor.fetchone()[0]
+            return self.cursor.fetchone()[0]
 
     def get_all_documents(self):
 
-        self.cursor.execute(
-            """
-            SELECT
-                id,
-                title,
-                content
-            FROM documents
-            """
-        )
+        with self.lock:
 
-        return self.cursor.fetchall()
+            self.cursor.execute(
+                """
+                SELECT
+                    id,
+                    title,
+                    content
+                FROM documents
+                """
+            )
+
+            return self.cursor.fetchall()
 
     def get_documents_by_ids(
         self,
@@ -105,12 +116,15 @@ class Database:
         WHERE id IN ({placeholders})
         """
 
-        self.cursor.execute(
-            query,
-            tuple(doc_ids)
-        )
+        with self.lock:
 
-        return self.cursor.fetchall()
+            self.cursor.execute(
+                query,
+                tuple(doc_ids)
+            )
+
+            return self.cursor.fetchall()
 
     def close(self):
-        self.conn.close()
+        with self.lock:
+            self.conn.close()
