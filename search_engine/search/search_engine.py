@@ -20,6 +20,10 @@ from search.bm25_ranker import (
     BM25Ranker
 )
 
+from search.snippet_generator import (
+    SnippetGenerator
+)
+
 
 class SearchEngine:
 
@@ -38,17 +42,23 @@ class SearchEngine:
                 self.index_reader
             )
         )
+
         self.ranker = (
-        BM25Ranker(
-            self.index_reader
+            BM25Ranker(
+                self.index_reader
+            )
         )
-)
+
+        self.snippet_generator = (
+            SnippetGenerator()
+        )
 
         self.db = Database()
 
     def search(
         self,
-        query
+        query,
+        limit=20
     ):
 
         query_terms = (
@@ -75,12 +85,12 @@ class SearchEngine:
             reverse=True
         )
 
-        top_20_docs = sorted_docs[:20]
+        top_docs = sorted_docs[:limit]
 
         doc_ids = [
             int(doc_id)
             for doc_id, score
-            in top_20_docs
+            in top_docs
         ]
 
         documents = (
@@ -92,7 +102,7 @@ class SearchEngine:
 
         score_lookup = {
             int(doc_id): score 
-            for doc_id, score in top_20_docs
+            for doc_id, score in top_docs
         }
 
         results = []
@@ -104,19 +114,31 @@ class SearchEngine:
                 doc_id = row["id"]
                 title = row["title"]
                 url = row["url"]
+                content = row["content"]
 
             except Exception:
 
                 doc_id = row[0]
                 title = row[1]
                 url = row[2]
+                content = row[3]
+
+            snippet = (
+                self.snippet_generator
+                .generate(
+                    content,
+                    query,
+                    query_terms
+                )
+            )
 
             results.append(
                 {
                     "doc_id": doc_id,
                     "title": title,
                     "url": url,
-                    "score": score_lookup.get(doc_id, 0.0)
+                    "score": score_lookup.get(doc_id, 0.0),
+                    "snippet": snippet
                 }
             )
         

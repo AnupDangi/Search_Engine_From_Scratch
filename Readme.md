@@ -15,3 +15,25 @@ https://medium.com/filament-ai/making-text-search-learn-from-feedback-4fe210fd87
 
 Python: Finding Important Words in Text Using TF-IDF
 https://stevenloria.com/tf-idf/
+
+## Search Engine V1
+
+V1 includes crawling, HTML parsing, SQLite storage, text preprocessing,
+inverted indexing, BM25 ranking, snippet generation, and a FastAPI search
+endpoint.
+
+Architecture diagram:
+
+- [Search Engine V1 Architecture](docs/v1-architecture.md)
+
+Run the API from the `search_engine` directory:
+
+```bash
+uvicorn api.app:app --reload
+```
+
+Search endpoint:
+
+```text
+GET /search?q=asyncio&limit=10
+```

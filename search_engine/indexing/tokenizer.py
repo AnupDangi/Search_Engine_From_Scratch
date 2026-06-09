@@ -7,11 +7,18 @@ from collections import Counter
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 
-import nltk
-nltk.download('stopwords')
+FALLBACK_STOPWORDS = frozenset(
+    {
+        "a", "an", "and", "are", "as", "at", "be", "by", "for",
+        "from", "has", "in", "is", "it", "of", "on", "or", "that",
+        "the", "to", "was", "were", "will", "with"
+    }
+)
 
-# O(1) lookup
-STOPWORDS = frozenset(stopwords.words("english"))
+try:
+    STOPWORDS = frozenset(stopwords.words("english"))
+except LookupError:
+    STOPWORDS = FALLBACK_STOPWORDS
 
 # Compile once
 TOKEN_PATTERN = re.compile(r"[a-z0-9]+")

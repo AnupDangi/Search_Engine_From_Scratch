@@ -99,7 +99,8 @@ class Database:
         SELECT
             id,
             title,
-            url
+            url,
+            content
         FROM documents
         WHERE id IN ({placeholders})
         """
