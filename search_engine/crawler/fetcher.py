@@ -14,7 +14,7 @@ def fetch_page(url: str) -> str :
             headers=headers,
             timeout=10
         )
-
+        response.encoding="utf-8"
         response.raise_for_status()
 
         return response.text
