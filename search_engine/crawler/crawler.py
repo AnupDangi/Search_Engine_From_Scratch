@@ -1,7 +1,9 @@
 # crawler/crawler.py
 
 from bs4 import BeautifulSoup
+import heapq
 from pathlib import Path
+from urllib.parse import urlparse
 
 from crawler.fetcher import fetch_page
 from crawler.url_utils import normalize_url, is_same_domain, get_domain
@@ -11,19 +13,57 @@ class WebCrawler:
 
     def __init__(self, seed_url: str, max_pages: int = 100):
 
-        self.seed_url = seed_url
-        self.allowed_domain = get_domain(seed_url)
+        self.seed_url = normalize_url(seed_url, "")
+        self.allowed_domain = get_domain(self.seed_url)
+        self.allowed_path_prefix = urlparse(self.seed_url).path
 
         self.max_pages = max_pages
 
         self.visited = set()
-        self.to_visit = {seed_url}
+        self.to_visit = []
+        self.queued = {self.seed_url}
+        self.queue_counter = 0
+        self._queue_url(self.seed_url)
         self.metadata = {}
 
         Path("data/raw_html").mkdir(
             parents=True,
             exist_ok=True
         )
+
+    def _priority(self, url: str) -> int:
+
+        path = urlparse(url).path
+
+        priority_prefixes = (
+            ("/3/library/", 0),
+            ("/3/tutorial/", 1),
+            ("/3/reference/", 2),
+            ("/3/howto/", 3),
+            ("/3/faq/", 4),
+            ("/3/whatsnew/", 5),
+            ("/3/extending/", 7),
+            ("/3/c-api/", 8)
+        )
+
+        for prefix, priority in priority_prefixes:
+
+            if path.startswith(prefix):
+                return priority
+
+        return 6
+
+    def _queue_url(self, url: str):
+
+        heapq.heappush(
+            self.to_visit,
+            (
+                self._priority(url),
+                self.queue_counter,
+                url
+            )
+        )
+        self.queue_counter += 1
 
     def save_html(self, html: str, page_id: int,url:str):
 
@@ -54,9 +94,17 @@ class WebCrawler:
                 href
             )
 
-            if is_same_domain(
-                full_url,
-                self.allowed_domain
+            parsed_url = urlparse(full_url)
+
+            if (
+                parsed_url.scheme in {"http", "https"}
+                and is_same_domain(
+                    full_url,
+                    self.allowed_domain
+                )
+                and parsed_url.path.startswith(
+                    self.allowed_path_prefix
+                )
             ):
                 links.add(full_url)
 
@@ -68,7 +116,9 @@ class WebCrawler:
 
         while self.to_visit and page_count < self.max_pages:
 
-            current_url = self.to_visit.pop()
+            _priority, _counter, current_url = heapq.heappop(
+                self.to_visit
+            )
 
             if current_url in self.visited:
                 continue
@@ -93,9 +143,14 @@ class WebCrawler:
                 current_url
             )
 
-            self.to_visit.update(
-                links - self.visited
-            )
+            for link in sorted(links):
+
+                if (
+                    link not in self.visited
+                    and link not in self.queued
+                ):
+                    self._queue_url(link)
+                    self.queued.add(link)
 
             self.visited.add(current_url)
 

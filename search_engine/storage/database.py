@@ -82,5 +82,34 @@ class Database:
 
         return self.cursor.fetchall()
 
+    def get_documents_by_ids(
+        self,
+        doc_ids
+        ):
+
+        if not doc_ids:
+            return []
+
+        placeholders = ",".join(
+            "?"
+            for _ in doc_ids
+        )
+
+        query = f"""
+        SELECT
+            id,
+            title,
+            url
+        FROM documents
+        WHERE id IN ({placeholders})
+        """
+
+        self.cursor.execute(
+            query,
+            tuple(doc_ids)
+        )
+
+        return self.cursor.fetchall()
+
     def close(self):
         self.conn.close()
