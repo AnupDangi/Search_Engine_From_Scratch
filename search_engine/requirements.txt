@@ -1,0 +1,6 @@
+requests
+beautifulsoup4
+fastapi
+uvicorn
+scikit-learn
+nltk
