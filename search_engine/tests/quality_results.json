@@ -1,0 +1,1739 @@
+{
+  "results": [
+    {
+      "id": "T01",
+      "query": "python decorators",
+      "category": "programming",
+      "latency_ms": 432,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+        "http://127.0.0.1:8000/",
+        "https://en.wikipedia.org/wiki/IMDb_(identifier)",
+        "http://www.bibliotecanapoletana.it/assets/archivio/libri/regno_napoli/082.pdf"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://127.0.0.1:8000/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/IMDb_(identifier)",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://www.bibliotecanapoletana.it/assets/archivio/libri/regno_napoli/082.pdf",
+          "doc_type": "PDF"
+        }
+      ],
+      "result_counts": {
+        "web": 3,
+        "pdf": 1,
+        "image": 1
+      }
+    },
+    {
+      "id": "T02",
+      "query": "python asyncio",
+      "category": "programming",
+      "latency_ms": 595,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+        "http://127.0.0.1:8000/",
+        "https://en.wikipedia.org/wiki/IMDb_(identifier)"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://127.0.0.1:8000/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/IMDb_(identifier)",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 3,
+        "pdf": 0,
+        "image": 1
+      }
+    },
+    {
+      "id": "T03",
+      "query": "python generators",
+      "category": "programming",
+      "latency_ms": 696,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+        "http://127.0.0.1:8000/",
+        "https://en.wikipedia.org/wiki/IMDb_(identifier)",
+        "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+        "http://127.0.0.1:8000/about.html"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://127.0.0.1:8000/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/IMDb_(identifier)",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://127.0.0.1:8000/about.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://donate.wikimedia.org/?wmf_source=donate&wmf_medium=sidebar&wmf_campaign=en.wikipedia.org&uselang=en",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Category",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Contents",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Introduction",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Main_Page",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 50,
+        "pdf": 0,
+        "image": 26
+      }
+    },
+    {
+      "id": "T04",
+      "query": "deepfake detection github",
+      "category": "programming",
+      "latency_ms": 508,
+      "pass": false,
+      "reason": "must_not_rank_first 'wikipedia.org' IS #1 result",
+      "top5_urls": [
+        "https://en.wikipedia.org/wiki/Deepfake",
+        "https://en.wikipedia.org/wiki/Deepfake_pornography",
+        "https://bg.wikipedia.org/wiki/XXX",
+        "https://en.wikipedia.org/wiki/Category:2026_comedy_films",
+        "https://en.wikipedia.org/wiki/Deepfake_(film)"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake_pornography",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://bg.wikipedia.org/wiki/XXX",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Category:2026_comedy_films",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake_(film)",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://bg.wikipedia.org/wiki/%D0%A5%D0%B5%D1%80%D1%86%D0%BE%D0%B3%D1%81%D1%82%D0%B2%D0%BE_%D0%9D%D0%B5%D0%BE%D0%BF%D0%B0%D1%82%D1%80%D0%B8%D1%8F",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Category:2026_American_films",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Category:2026_Italian_films",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://cineuropa.org/en/newsdetail/490538/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/ISBN_(identifier)",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 19,
+        "pdf": 1,
+        "image": 6
+      }
+    },
+    {
+      "id": "T05",
+      "query": "langgraph tutorial",
+      "category": "programming",
+      "latency_ms": 622,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "https://developer.wikimedia.org",
+        "https://en.wikipedia.org/wiki/Help:Introduction",
+        "https://en.wikipedia.org/wiki/Help:Contents",
+        "https://en.wikipedia.org/wiki/Help:Category",
+        "https://en.wikipedia.org/wiki/Help:Referencing_for_beginners"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://developer.wikimedia.org",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Introduction",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Contents",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Category",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Referencing_for_beginners",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Asynchronous_Transfer_Mode",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Maintenance_template_removal",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Asynchronous_circuit",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 9,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T06",
+      "query": "transformer paper",
+      "category": "research",
+      "latency_ms": 514,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "http://opengroup.org/onlinepubs/009695399/basedefs/aio.h.html",
+        "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+        "https://en.wikipedia.org/wiki/Barrie_Rickards",
+        "https://en.wikipedia.org/wiki/Help:Referencing_for_beginners",
+        "https://en.wikipedia.org/wiki/America"
+      ],
+      "top10_docs": [
+        {
+          "url": "http://opengroup.org/onlinepubs/009695399/basedefs/aio.h.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Barrie_Rickards",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Referencing_for_beginners",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/America",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Category:2026_Italian_films",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://www.barnesandnoble.com/w/wireless-atm-and-ad-hoc-networks-c-k-toh/1112737100?ean=9780792398226",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Arts_Council_of_Pakistan_Karachi",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Goole_Academy",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 19,
+        "pdf": 0,
+        "image": 24
+      }
+    },
+    {
+      "id": "T07",
+      "query": "attention is all you need pdf",
+      "category": "pdf_retrieval",
+      "latency_ms": 398,
+      "pass": false,
+      "reason": "no PDF in top-3 results",
+      "top5_urls": [
+        "https://en.wikipedia.org/wiki/Category:Short_description_is_different_from_Wikidata",
+        "https://en.wikipedia.org/wiki/Help:Maintenance_template_removal",
+        "https://en.wikipedia.org/wiki/Category:Articles_needing_additional_references_from_March_2024",
+        "https://en.wikipedia.org/wiki/Category:Template_film_date_with_1_release_date",
+        "https://en.wikipedia.org/wiki/Help:Contents"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Category:Short_description_is_different_from_Wikidata",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Maintenance_template_removal",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Category:Articles_needing_additional_references_from_March_2024",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Category:Template_film_date_with_1_release_date",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Contents",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Category:1978_films",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Janatha_Vimukthi_Peramuna",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/XXXTentacion",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 47,
+        "pdf": 3,
+        "image": 3
+      }
+    },
+    {
+      "id": "T08",
+      "query": "retrieval augmented generation survey pdf",
+      "category": "pdf_retrieval",
+      "latency_ms": 458,
+      "pass": false,
+      "reason": "no PDF in top-5 results",
+      "top5_urls": [
+        "https://en.wikipedia.org/wiki/Deepfake",
+        "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+        "https://en.wikipedia.org/wiki/Janatha_Vimukthi_Peramuna",
+        "https://en.wikipedia.org/wiki/Goole_Academy",
+        "https://en.wikipedia.org/wiki/Apeks"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Janatha_Vimukthi_Peramuna",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Goole_Academy",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Apeks",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Duchy_of_Neopatras",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/America",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Async_IO",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://127.0.0.1:8000/about.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://archive.org/details/latemedievalbalk00fine/",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 48,
+        "pdf": 2,
+        "image": 31
+      }
+    },
+    {
+      "id": "T09",
+      "query": "python logo",
+      "category": "image_search",
+      "latency_ms": 640,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "http://127.0.0.1:8000/",
+        "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+        "https://en.wikipedia.org/wiki/IMDb_(identifier)",
+        "http://opencores.org/project,aspida",
+        "https://cineuropa.org/en/newsdetail/490538/"
+      ],
+      "top10_docs": [
+        {
+          "url": "http://127.0.0.1:8000/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/IMDb_(identifier)",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://opencores.org/project,aspida",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://cineuropa.org/en/newsdetail/490538/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/ARY_Digital",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/APEKS-BANK",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://archive.org/details/bwb_W9-AUH-001/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://archive.org/details/latemedievalbalk00fine/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://archive.org/stream/latinsinlevanthi00mill/",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 13,
+        "pdf": 0,
+        "image": 50
+      }
+    },
+    {
+      "id": "T10",
+      "query": "linux architecture diagram",
+      "category": "image_search",
+      "latency_ms": 422,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "https://en.wikipedia.org/wiki/Asynchronous_circuit",
+        "https://en.wikipedia.org/wiki/Async_IO",
+        "https://en.wikipedia.org/wiki/Asynchronous_Transfer_Mode",
+        "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+        "https://ca.wikipedia.org/wiki/Crida_no_bloquejant"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Asynchronous_circuit",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Async_IO",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Asynchronous_Transfer_Mode",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://software.schmorp.de/pkg/IO-AIO.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://127.0.0.1:8000/about.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://link.springer.com/10.1007/978-3-642-55989-1",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://opengroup.org/onlinepubs/009695399/basedefs/aio.h.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://opencores.org/project,aspida",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 21,
+        "pdf": 1,
+        "image": 25
+      }
+    },
+    {
+      "id": "T11",
+      "query": "cnn architecture image",
+      "category": "image_search",
+      "latency_ms": 384,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "https://en.wikipedia.org/wiki/Deepfake",
+        "https://en.wikipedia.org/wiki/Deepfake_pornography",
+        "http://127.0.0.1:8000/about.html",
+        "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+        "https://en.wikipedia.org/wiki/America"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake_pornography",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://127.0.0.1:8000/about.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/America",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/XXXTentacion",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Category",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://opengroup.org/onlinepubs/009695399/basedefs/aio.h.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Contents",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://opencores.org/project,aspida",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 40,
+        "pdf": 1,
+        "image": 50
+      }
+    },
+    {
+      "id": "T12",
+      "query": "operating system notes pdf",
+      "category": "pdf_retrieval",
+      "latency_ms": 771,
+      "pass": false,
+      "reason": "no PDF in top-5 results",
+      "top5_urls": [
+        "https://en.wikipedia.org/wiki/Asynchronous_Transfer_Mode",
+        "https://en.wikipedia.org/wiki/Asynchronous_circuit",
+        "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+        "https://en.wikipedia.org/wiki/Async_IO",
+        "https://en.wikipedia.org/wiki/America"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Asynchronous_Transfer_Mode",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Asynchronous_circuit",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Async_IO",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/America",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Academy_(English_school)",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://archive.org/stream/latinsinlevanthi00mill/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/ISBN_(identifier)",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Apeks",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Arts_Council_of_Pakistan_Karachi",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 47,
+        "pdf": 3,
+        "image": 8
+      }
+    },
+    {
+      "id": "T13",
+      "query": "machine learning handbook pdf",
+      "category": "pdf_retrieval",
+      "latency_ms": 447,
+      "pass": false,
+      "reason": "no PDF in top-5 results",
+      "top5_urls": [
+        "https://en.wikipedia.org/wiki/Academy_(English_school)",
+        "https://en.wikipedia.org/wiki/Deepfake",
+        "https://en.wikipedia.org/wiki/Deepfake_pornography",
+        "http://async.org.uk",
+        "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Academy_(English_school)",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake_pornography",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://async.org.uk",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://archive.org/stream/latinsinlevanthi00mill/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://archive.org/details/bwb_W9-AUH-001/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Goole_Academy",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/America",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://archive.org/details/latemedievalbalk00fine/",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 47,
+        "pdf": 3,
+        "image": 4
+      }
+    },
+    {
+      "id": "T14",
+      "query": "\"deep learning\"",
+      "category": "phrase_search",
+      "latency_ms": 458,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "https://en.wikipedia.org/wiki/Deepfake_pornography",
+        "https://en.wikipedia.org/wiki/Deepfake"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake_pornography",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 2,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T15",
+      "query": "\"event loop\"",
+      "category": "phrase_search",
+      "latency_ms": 481,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "https://en.wikipedia.org/wiki/Async_IO",
+        "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Async_IO",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 2,
+        "pdf": 0,
+        "image": 1
+      }
+    },
+    {
+      "id": "T16",
+      "query": "deepfake detection",
+      "category": "proximity_search",
+      "latency_ms": 696,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "https://en.wikipedia.org/wiki/Deepfake",
+        "https://en.wikipedia.org/wiki/Deepfake_pornography",
+        "https://en.wikipedia.org/wiki/Category:2026_comedy_films",
+        "https://en.wikipedia.org/wiki/Deepfake_(film)",
+        "https://en.wikipedia.org/wiki/Category:2026_American_films"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake_pornography",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Category:2026_comedy_films",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake_(film)",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Category:2026_American_films",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Category:2026_Italian_films",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://cineuropa.org/en/newsdetail/490538/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/ISBN_(identifier)",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://ca.wikipedia.org/wiki/Categoria:Pel%C2%B7l%C3%ADcules_dels_Estats_Units_del_2026",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://archive.org/details/bwb_W9-AUH-001/",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 17,
+        "pdf": 1,
+        "image": 6
+      }
+    },
+    {
+      "id": "T17",
+      "query": "latest ai models",
+      "category": "freshness",
+      "latency_ms": 531,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "https://en.wikipedia.org/wiki/Deepfake",
+        "http://opengroup.org/onlinepubs/009695399/basedefs/aio.h.html",
+        "http://link.springer.com/10.1007/978-3-642-55989-1",
+        "https://cineuropa.org/en/newsdetail/490538/",
+        "https://en.wikipedia.org/wiki/Xxx"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://opengroup.org/onlinepubs/009695399/basedefs/aio.h.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://link.springer.com/10.1007/978-3-642-55989-1",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://cineuropa.org/en/newsdetail/490538/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Xxx",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Asynchronous_Transfer_Mode",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://127.0.0.1:8000/about.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Asynchronous_circuit",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake_pornography",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 49,
+        "pdf": 1,
+        "image": 7
+      }
+    },
+    {
+      "id": "T18",
+      "query": "python logo",
+      "category": "intent_detection",
+      "latency_ms": 460,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "http://127.0.0.1:8000/",
+        "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+        "https://en.wikipedia.org/wiki/IMDb_(identifier)",
+        "http://opencores.org/project,aspida",
+        "https://cineuropa.org/en/newsdetail/490538/"
+      ],
+      "top10_docs": [
+        {
+          "url": "http://127.0.0.1:8000/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/IMDb_(identifier)",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://opencores.org/project,aspida",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://cineuropa.org/en/newsdetail/490538/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/ARY_Digital",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/APEKS-BANK",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://archive.org/details/bwb_W9-AUH-001/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://archive.org/details/latemedievalbalk00fine/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://archive.org/stream/latinsinlevanthi00mill/",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 13,
+        "pdf": 0,
+        "image": 50
+      }
+    },
+    {
+      "id": "T19",
+      "query": "python tutorial pdf",
+      "category": "intent_detection",
+      "latency_ms": 571,
+      "pass": false,
+      "reason": "no PDF in top-5 results",
+      "top5_urls": [
+        "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+        "http://127.0.0.1:8000/",
+        "https://en.wikipedia.org/wiki/Help:Introduction",
+        "https://developer.wikimedia.org",
+        "https://en.wikipedia.org/wiki/Help:Contents"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://127.0.0.1:8000/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Introduction",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://developer.wikimedia.org",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Contents",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Category",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Asynchronous_circuit",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Referencing_for_beginners",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Asynchronous_Transfer_Mode",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Maintenance_template_removal",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 47,
+        "pdf": 3,
+        "image": 1
+      }
+    },
+    {
+      "id": "T20",
+      "query": "python github",
+      "category": "intent_detection",
+      "latency_ms": 359,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+        "https://bg.wikipedia.org/wiki/XXX",
+        "http://127.0.0.1:8000/",
+        "https://bg.wikipedia.org/wiki/%D0%A5%D0%B5%D1%80%D1%86%D0%BE%D0%B3%D1%81%D1%82%D0%B2%D0%BE_%D0%9D%D0%B5%D0%BE%D0%BF%D0%B0%D1%82%D1%80%D0%B8%D1%8F",
+        "https://en.wikipedia.org/wiki/Deepfake"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://bg.wikipedia.org/wiki/XXX",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://127.0.0.1:8000/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://bg.wikipedia.org/wiki/%D0%A5%D0%B5%D1%80%D1%86%D0%BE%D0%B3%D1%81%D1%82%D0%B2%D0%BE_%D0%9D%D0%B5%D0%BE%D0%BF%D0%B0%D1%82%D1%80%D0%B8%D1%8F",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Deepfake",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/IMDb_(identifier)",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 6,
+        "pdf": 0,
+        "image": 1
+      }
+    },
+    {
+      "id": "T21",
+      "query": "xyznonexistenttopic99887",
+      "category": "dynamic_crawl",
+      "latency_ms": 6056,
+      "pass": true,
+      "reason": "Correctly returned no local results (fallback may trigger)",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T22",
+      "query": "asyncio event loop python",
+      "category": "dynamic_crawl",
+      "latency_ms": 1184,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+        "https://en.wikipedia.org/wiki/Async_IO",
+        "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+        "http://127.0.0.1:8000/",
+        "https://en.wikipedia.org/wiki/Apeks"
+      ],
+      "top10_docs": [
+        {
+          "url": "http://www.usenix.org/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Async_IO",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://ca.wikipedia.org/wiki/Crida_no_bloquejant",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://127.0.0.1:8000/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Apeks",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/IMDb_(identifier)",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Asynchronous_circuit",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://developer.wikimedia.org",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Main_Page",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Introduction",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 49,
+        "pdf": 1,
+        "image": 26
+      }
+    },
+    {
+      "id": "T23",
+      "query": "javascript promises async await",
+      "category": "programming",
+      "latency_ms": 2159,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "https://flask.palletsprojects.com/",
+        "https://fastapi.tiangolo.com/",
+        "https://en.wikipedia.org/wiki/Async_IO",
+        "https://cs.wikipedia.org/wiki/Asynchronn%C3%AD_vstup/v%C3%BDstup",
+        "http://planetpython.org/"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://flask.palletsprojects.com/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://fastapi.tiangolo.com/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Async_IO",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://cs.wikipedia.org/wiki/Asynchronn%C3%AD_vstup/v%C3%BDstup",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://planetpython.org/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://peps.python.org",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://python.org/psf/community-stories/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Count_Alan_of_Brittany",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/XXXTentacion",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 9,
+        "pdf": 0,
+        "image": 5
+      }
+    },
+    {
+      "id": "T24",
+      "query": "react hooks useEffect",
+      "category": "programming",
+      "latency_ms": 11599,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "https://en.wikipedia.org/wiki/Tkinter",
+        "https://flask.palletsprojects.com/",
+        "http://www.goolecivicsociety.org.uk/",
+        "https://peps.python.org",
+        "https://en.wikipedia.org/wiki/Hello,_world"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Tkinter",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://flask.palletsprojects.com/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://www.goolecivicsociety.org.uk/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://peps.python.org",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hello,_world",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/XXXTentacion",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://planetpython.org/",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 7,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T25",
+      "query": "sql join types",
+      "category": "programming",
+      "latency_ms": 669,
+      "pass": true,
+      "reason": "OK",
+      "top5_urls": [
+        "https://github.com/agnilondapakou/helloWorld",
+        "https://devguide.python.org/",
+        "https://fastapi.tiangolo.com/",
+        "https://en.wikipedia.org/wiki/Help:Category",
+        "https://docs.python.org/3/tutorial/introduction.html"
+      ],
+      "top10_docs": [
+        {
+          "url": "https://github.com/agnilondapakou/helloWorld",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://devguide.python.org/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://fastapi.tiangolo.com/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Help:Category",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://docs.python.org/3/tutorial/introduction.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://docs.python.org/3/tutorial/introduction.html",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "http://planetpython.org/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://python.org/psf/get-involved/",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://github.com/python/cpython/issues",
+          "doc_type": "HTML"
+        },
+        {
+          "url": "https://peps.python.org",
+          "doc_type": "HTML"
+        }
+      ],
+      "result_counts": {
+        "web": 39,
+        "pdf": 1,
+        "image": 5
+      }
+    },
+    {
+      "id": "T26",
+      "query": "docker container kubernetes",
+      "category": "programming",
+      "latency_ms": 30002,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T27",
+      "query": "binary search algorithm",
+      "category": "programming",
+      "latency_ms": 30002,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T28",
+      "query": "git merge rebase difference",
+      "category": "programming",
+      "latency_ms": 6528,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T29",
+      "query": "neural network lecture notes",
+      "category": "pdf_retrieval",
+      "latency_ms": 11798,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T30",
+      "query": "data structures algorithms guide",
+      "category": "pdf_retrieval",
+      "latency_ms": 10399,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T31",
+      "query": "linux kernel research paper",
+      "category": "pdf_retrieval",
+      "latency_ms": 6025,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T32",
+      "query": "gpt language model arxiv",
+      "category": "pdf_retrieval",
+      "latency_ms": 6047,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T33",
+      "query": "python programming textbook",
+      "category": "pdf_retrieval",
+      "latency_ms": 5957,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T34",
+      "query": "neural network diagram",
+      "category": "image_search",
+      "latency_ms": 5861,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T35",
+      "query": "transformer architecture figure",
+      "category": "image_search",
+      "latency_ms": 5789,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T36",
+      "query": "kubernetes architecture screenshot",
+      "category": "image_search",
+      "latency_ms": 5949,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T37",
+      "query": "\"machine learning\"",
+      "category": "phrase_search",
+      "latency_ms": 5923,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T38",
+      "query": "\"neural network\"",
+      "category": "phrase_search",
+      "latency_ms": 5769,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T39",
+      "query": "\"attention mechanism\"",
+      "category": "phrase_search",
+      "latency_ms": 5952,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T40",
+      "query": "\"gradient descent\"",
+      "category": "phrase_search",
+      "latency_ms": 5945,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T41",
+      "query": "what is recursion",
+      "category": "definition",
+      "latency_ms": 5983,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T42",
+      "query": "what is pagerank algorithm",
+      "category": "definition",
+      "latency_ms": 5793,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T43",
+      "query": "explain transformer model",
+      "category": "definition",
+      "latency_ms": 5919,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T44",
+      "query": "what is bm25 ranking",
+      "category": "definition",
+      "latency_ms": 5873,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T45",
+      "query": "difference between tcp and udp",
+      "category": "definition",
+      "latency_ms": 10503,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T46",
+      "query": "pytorch documentation",
+      "category": "navigational",
+      "latency_ms": 5578,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T47",
+      "query": "tensorflow keras api",
+      "category": "navigational",
+      "latency_ms": 5736,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T48",
+      "query": "fastapi python documentation",
+      "category": "navigational",
+      "latency_ms": 5674,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T49",
+      "query": "convolutional neural network image classification",
+      "category": "proximity_search",
+      "latency_ms": 5629,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    },
+    {
+      "id": "T50",
+      "query": "python web scraping beautiful soup",
+      "category": "proximity_search",
+      "latency_ms": 5693,
+      "pass": false,
+      "reason": "API unreachable or error",
+      "top5_urls": [],
+      "top10_docs": [],
+      "result_counts": {
+        "web": 0,
+        "pdf": 0,
+        "image": 0
+      }
+    }
+  ],
+  "targets": {
+    "top3_relevance_pct": 80,
+    "precision_at_5": 70,
+    "precision_at_10": 60,
+    "mrr": 0.6,
+    "ndcg_at_10": 0.55,
+    "latency_cached_ms": 500,
+    "dynamic_crawl_s": 15,
+    "phrase_search_pct": 100,
+    "image_search_pct": 70,
+    "pdf_retrieval_pct": 80
+  },
+  "metrics": {
+    "mrr": 0.198,
+    "p5": 0.119,
+    "p10": 0.128,
+    "ndcg10": 0.203
+  }
+}

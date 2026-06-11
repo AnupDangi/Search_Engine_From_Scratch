@@ -1,0 +1,536 @@
+{
+  "version": "2.1",
+  "description": "MINISEARCH quality benchmark — queries evaluated against live API results",
+  "tests": [
+    {
+      "id": "T01",
+      "category": "programming",
+      "query": "python decorators",
+      "must_contain": [],
+      "should_contain": ["python.org", "docs.python.org", "realpython.com", "wikipedia.org"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "Core Python docs should dominate"
+    },
+    {
+      "id": "T02",
+      "category": "programming",
+      "query": "python asyncio",
+      "must_contain": [],
+      "should_contain": ["docs.python.org", "wikipedia.org", "realpython.com"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    },
+    {
+      "id": "T03",
+      "category": "programming",
+      "query": "python generators",
+      "must_contain": [],
+      "should_contain": ["docs.python.org", "realpython.com", "wikipedia.org"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    },
+    {
+      "id": "T04",
+      "category": "programming",
+      "query": "deepfake detection github",
+      "must_contain": [],
+      "should_contain": ["github.com", "paperswithcode.com", "arxiv.org"],
+      "must_not_rank_first": ["wikipedia.org"],
+      "expected_type": "html",
+      "notes": "domain_boost for github.com should kick in"
+    },
+    {
+      "id": "T05",
+      "category": "programming",
+      "query": "langgraph tutorial",
+      "must_contain": [],
+      "should_contain": ["langchain.com", "github.com", "docs.langchain.com"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    },
+    {
+      "id": "T06",
+      "category": "research",
+      "query": "transformer paper",
+      "must_contain": [],
+      "should_contain": ["arxiv.org", "research.google", "papers.nips.cc"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "arxiv domain boost should apply"
+    },
+    {
+      "id": "T07",
+      "category": "pdf_retrieval",
+      "query": "attention is all you need pdf",
+      "must_contain": [],
+      "should_contain": ["arxiv.org"],
+      "must_not_rank_first": [],
+      "expected_type": "pdf",
+      "notes": "PDF intent must be detected; PDF results expected in top 3",
+      "top_k_check": 3
+    },
+    {
+      "id": "T08",
+      "category": "pdf_retrieval",
+      "query": "retrieval augmented generation survey pdf",
+      "must_contain": [],
+      "should_contain": ["arxiv.org"],
+      "must_not_rank_first": [],
+      "expected_type": "pdf",
+      "notes": "PDF intent + arxiv domain boost"
+    },
+    {
+      "id": "T09",
+      "category": "image_search",
+      "query": "python logo",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "image",
+      "notes": "Image intent must fire; image results expected"
+    },
+    {
+      "id": "T10",
+      "category": "image_search",
+      "query": "linux architecture diagram",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "image",
+      "notes": ""
+    },
+    {
+      "id": "T11",
+      "category": "image_search",
+      "query": "cnn architecture image",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "image",
+      "notes": ""
+    },
+    {
+      "id": "T12",
+      "category": "pdf_retrieval",
+      "query": "operating system notes pdf",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "pdf",
+      "notes": "PDFs must rank above HTML results"
+    },
+    {
+      "id": "T13",
+      "category": "pdf_retrieval",
+      "query": "machine learning handbook pdf",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "pdf",
+      "notes": ""
+    },
+    {
+      "id": "T14",
+      "category": "phrase_search",
+      "query": "\"deep learning\"",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "Adjacent 'deep learning' must beat scattered occurrences"
+    },
+    {
+      "id": "T15",
+      "category": "phrase_search",
+      "query": "\"event loop\"",
+      "must_contain": [],
+      "should_contain": ["wikipedia.org"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    },
+    {
+      "id": "T16",
+      "category": "proximity_search",
+      "query": "deepfake detection",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "Docs with adjacent terms must beat distant occurrences"
+    },
+    {
+      "id": "T17",
+      "category": "freshness",
+      "query": "latest ai models",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "Recently crawled pages should rank above stale pages"
+    },
+    {
+      "id": "T18",
+      "category": "intent_detection",
+      "query": "python logo",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "image",
+      "notes": "IMAGE intent from 'logo' keyword"
+    },
+    {
+      "id": "T19",
+      "category": "intent_detection",
+      "query": "python tutorial pdf",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "pdf",
+      "notes": "PDF intent from 'pdf' + 'tutorial' keywords"
+    },
+    {
+      "id": "T20",
+      "category": "intent_detection",
+      "query": "python github",
+      "must_contain": [],
+      "should_contain": ["github.com"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "domain_boost for github.com must apply"
+    },
+    {
+      "id": "T21",
+      "category": "dynamic_crawl",
+      "query": "xyznonexistenttopic99887",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "any",
+      "notes": "Should return 0 local results and trigger background discovery"
+    },
+    {
+      "id": "T22",
+      "category": "dynamic_crawl",
+      "query": "asyncio event loop python",
+      "must_contain": [],
+      "should_contain": ["wikipedia.org"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "Should hit from index. No recrawl needed."
+    },
+    {
+      "id": "T23",
+      "category": "programming",
+      "query": "javascript promises async await",
+      "must_contain": [],
+      "should_contain": ["developer.mozilla.org", "javascript.info"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "MDN should dominate JS queries"
+    },
+    {
+      "id": "T24",
+      "category": "programming",
+      "query": "react hooks useEffect",
+      "must_contain": [],
+      "should_contain": ["react.dev", "reactjs.org"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    },
+    {
+      "id": "T25",
+      "category": "programming",
+      "query": "sql join types",
+      "must_contain": [],
+      "should_contain": ["w3schools.com", "wikipedia.org"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "Common SQL reference query"
+    },
+    {
+      "id": "T26",
+      "category": "programming",
+      "query": "docker container kubernetes",
+      "must_contain": [],
+      "should_contain": ["docs.docker.com", "kubernetes.io"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    },
+    {
+      "id": "T27",
+      "category": "programming",
+      "query": "binary search algorithm",
+      "must_contain": [],
+      "should_contain": ["wikipedia.org", "geeksforgeeks.org"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    },
+    {
+      "id": "T28",
+      "category": "programming",
+      "query": "git merge rebase difference",
+      "must_contain": [],
+      "should_contain": ["git-scm.com", "stackoverflow.com"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    },
+    {
+      "id": "T29",
+      "category": "pdf_retrieval",
+      "query": "neural network lecture notes",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "pdf",
+      "notes": "'notes' + 'lecture' should trigger PDF intent"
+    },
+    {
+      "id": "T30",
+      "category": "pdf_retrieval",
+      "query": "data structures algorithms guide",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "pdf",
+      "notes": "'guide' keyword should trigger PDF intent"
+    },
+    {
+      "id": "T31",
+      "category": "pdf_retrieval",
+      "query": "linux kernel research paper",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "pdf",
+      "notes": "'paper' + 'research' double PDF signal"
+    },
+    {
+      "id": "T32",
+      "category": "pdf_retrieval",
+      "query": "gpt language model arxiv",
+      "must_contain": [],
+      "should_contain": ["arxiv.org"],
+      "must_not_rank_first": [],
+      "expected_type": "pdf",
+      "notes": "arxiv domain boost + PDF intent"
+    },
+    {
+      "id": "T33",
+      "category": "pdf_retrieval",
+      "query": "python programming textbook",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "pdf",
+      "notes": "'textbook' triggers PDF intent"
+    },
+    {
+      "id": "T34",
+      "category": "image_search",
+      "query": "neural network diagram",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "image",
+      "notes": "'diagram' triggers IMAGE intent"
+    },
+    {
+      "id": "T35",
+      "category": "image_search",
+      "query": "transformer architecture figure",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "image",
+      "notes": "'figure' triggers IMAGE intent"
+    },
+    {
+      "id": "T36",
+      "category": "image_search",
+      "query": "kubernetes architecture screenshot",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "image",
+      "notes": "'screenshot' triggers IMAGE intent"
+    },
+    {
+      "id": "T37",
+      "category": "phrase_search",
+      "query": "\"machine learning\"",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "Exact phrase match — adjacent only"
+    },
+    {
+      "id": "T38",
+      "category": "phrase_search",
+      "query": "\"neural network\"",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "Exact phrase match"
+    },
+    {
+      "id": "T39",
+      "category": "phrase_search",
+      "query": "\"attention mechanism\"",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "Exact phrase match"
+    },
+    {
+      "id": "T40",
+      "category": "phrase_search",
+      "query": "\"gradient descent\"",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "Exact phrase match"
+    },
+    {
+      "id": "T41",
+      "category": "definition",
+      "query": "what is recursion",
+      "must_contain": [],
+      "should_contain": ["wikipedia.org", "geeksforgeeks.org"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "Definitional query — Wikipedia expected high"
+    },
+    {
+      "id": "T42",
+      "category": "definition",
+      "query": "what is pagerank algorithm",
+      "must_contain": [],
+      "should_contain": ["wikipedia.org"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    },
+    {
+      "id": "T43",
+      "category": "definition",
+      "query": "explain transformer model",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    },
+    {
+      "id": "T44",
+      "category": "definition",
+      "query": "what is bm25 ranking",
+      "must_contain": [],
+      "should_contain": ["wikipedia.org"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    },
+    {
+      "id": "T45",
+      "category": "definition",
+      "query": "difference between tcp and udp",
+      "must_contain": [],
+      "should_contain": ["wikipedia.org"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    },
+    {
+      "id": "T46",
+      "category": "navigational",
+      "query": "pytorch documentation",
+      "must_contain": [],
+      "should_contain": ["pytorch.org"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "Navigational query — correct site must appear"
+    },
+    {
+      "id": "T47",
+      "category": "navigational",
+      "query": "tensorflow keras api",
+      "must_contain": [],
+      "should_contain": ["tensorflow.org"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    },
+    {
+      "id": "T48",
+      "category": "navigational",
+      "query": "fastapi python documentation",
+      "must_contain": [],
+      "should_contain": ["fastapi.tiangolo.com"],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    },
+    {
+      "id": "T49",
+      "category": "proximity_search",
+      "query": "convolutional neural network image classification",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": "Multi-term proximity — docs with all terms adjacent win"
+    },
+    {
+      "id": "T50",
+      "category": "proximity_search",
+      "query": "python web scraping beautiful soup",
+      "must_contain": [],
+      "should_contain": [],
+      "must_not_rank_first": [],
+      "expected_type": "html",
+      "notes": ""
+    }
+  ],
+  "gold_standard_queries": [
+    "python decorators",
+    "deepfake detection github",
+    "langgraph tutorial",
+    "attention is all you need pdf",
+    "python logo",
+    "linux architecture diagram",
+    "machine learning survey pdf",
+    "asyncio event loop",
+    "rag architecture",
+    "agentic ai framework",
+    "neural network lecture notes",
+    "transformer architecture figure",
+    "what is pagerank algorithm",
+    "fastapi python documentation",
+    "convolutional neural network image classification"
+  ],
+  "success_targets": {
+    "top3_relevance_pct": 80,
+    "precision_at_5": 70,
+    "precision_at_10": 60,
+    "mrr": 0.6,
+    "ndcg_at_10": 0.55,
+    "latency_cached_ms": 500,
+    "dynamic_crawl_s": 15,
+    "phrase_search_pct": 100,
+    "image_search_pct": 70,
+    "pdf_retrieval_pct": 80
+  }
+}

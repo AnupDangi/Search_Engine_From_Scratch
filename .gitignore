@@ -1,2 +1,9 @@
 venv/
 data/
+storage/images/
+storage/pdfs/
+__pycache__/
+*.pyc
+*.pyo
+search_engine/api/__pycache__/
+search_engine/storage/__pycache__/

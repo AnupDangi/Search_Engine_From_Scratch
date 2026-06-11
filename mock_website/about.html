@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>About Modern Search Engine v2</title>
+</head>
+
+<body style="font-family: sans-serif; padding: 20px; background-color: #fafafa; color: #333;">
+    <h1 style="color: #1a73e8;">About the Search Engine Architecture</h1>
+    <p>The Unified Retrieval Platform utilizes a BM25F ranking scoring model. BM25F is a variation of BM25 that allows
+        weights to be assigned to different fields such as title, content, and URL components.</p>
+    <p>To improve search relevance, the engine uses query term coverage boosting and strict phrase matching. In order to
+        match a phrase, the engine verifies that terms appear adjacent to each other in the index by checking their
+        relative positions.</p>
+    <p>We also index images and PDFs incrementally. If a document's SHA-256 content hash has not changed, we skip the
+        index rebuild, conserving computational resources.</p>
+    <p>We also support video and audio indexing. By using Whisper and Vision-Language models (VLMs), we transcribe media
+        content and generate visual descriptions of keyframes.</p>
+</body>
+
+</html>

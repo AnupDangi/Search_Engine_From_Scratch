@@ -5,7 +5,7 @@ import unicodedata
 
 from collections import Counter
 from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
+from nltk.stem.snowball import SnowballStemmer
 
 FALLBACK_STOPWORDS = frozenset(
     {
@@ -36,7 +36,7 @@ class TextPreprocessor:
     ↓
     Stopword Removal
     ↓
-    Porter Stemming
+    Snowball Stemming
     ↓
     Term Statistics
     """
@@ -44,7 +44,7 @@ class TextPreprocessor:
     __slots__ = ("stemmer",)
 
     def __init__(self):
-        self.stemmer = PorterStemmer()
+        self.stemmer = SnowballStemmer("english")
 
     def process(self, text: str) -> list[str]:
         """

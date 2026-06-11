@@ -3,21 +3,17 @@
 import html
 import re
 
-from nltk.stem import PorterStemmer
+from nltk.stem.snowball import SnowballStemmer
 
 
 TOKEN_PATTERN = re.compile(r"[a-z0-9]+", re.IGNORECASE)
+WINDOW_CHARS = 200
 
 
 class SnippetGenerator:
 
-    def __init__(
-        self,
-        max_words: int = 32
-    ):
-
-        self.max_words = max_words
-        self.stemmer = PorterStemmer()
+    def __init__(self):
+        self.stemmer = SnowballStemmer("english")
 
     def generate(
         self,
@@ -30,104 +26,71 @@ class SnippetGenerator:
             return ""
 
         words = re.findall(r"\S+", content)
-
         if not words:
             return ""
 
-        raw_query_terms = {
-            term.lower()
-            for term in TOKEN_PATTERN.findall(query)
-        }
-
+        raw_query_terms = {t.lower() for t in TOKEN_PATTERN.findall(query)}
         processed_query_terms = set(query_terms)
 
-        match_index = self._find_first_match(
-            words,
-            raw_query_terms,
-            processed_query_terms
+        best_start, best_end = self._best_window(
+            words, raw_query_terms, processed_query_terms
         )
-
-        if match_index is None:
-            match_index = 0
-
-        start = max(0, match_index - self.max_words // 2)
-        end = min(len(words), start + self.max_words)
-        start = max(0, end - self.max_words)
 
         snippet_words = [
-            self._format_word(
-                word,
-                raw_query_terms,
-                processed_query_terms
-            )
-            for word in words[start:end]
+            self._format_word(w, raw_query_terms, processed_query_terms)
+            for w in words[best_start:best_end]
         ]
 
-        prefix = "... " if start > 0 else ""
-        suffix = " ..." if end < len(words) else ""
+        prefix = "... " if best_start > 0 else ""
+        suffix = " ..." if best_end < len(words) else ""
 
-        return (
-            prefix
-            + " ".join(snippet_words)
-            + suffix
-        )
+        return prefix + " ".join(snippet_words) + suffix
 
-    def _find_first_match(
-        self,
-        words,
-        raw_query_terms,
-        processed_query_terms
-    ):
+    def _best_window(self, words, raw_terms, processed_terms):
+        """Return (start, end) indices of the 200-char window with max unique query term hits."""
+        n = len(words)
+        best_start, best_end, best_score = 0, min(n, 40), -1
 
-        for index, word in enumerate(words):
+        for i in range(n):
+            # Grow window from position i until char budget exceeded
+            char_count = 0
+            j = i
+            while j < n:
+                char_count += len(words[j]) + 1
+                if char_count > WINDOW_CHARS and j > i:
+                    break
+                j += 1
 
-            if self._matches(
-                word,
-                raw_query_terms,
-                processed_query_terms
-            ):
-                return index
+            # Score = number of unique stemmed query terms present in this window
+            matched = set()
+            for w in words[i:j]:
+                for token in TOKEN_PATTERN.findall(w):
+                    t = token.lower()
+                    stemmed = self.stemmer.stem(t)
+                    if t in raw_terms or stemmed in processed_terms:
+                        matched.add(stemmed)
 
-        return None
+            score = len(matched)
+            if score > best_score:
+                best_score = score
+                best_start = i
+                best_end = j
 
-    def _format_word(
-        self,
-        word,
-        raw_query_terms,
-        processed_query_terms
-    ):
+            # Early exit once all terms matched
+            if score == len(processed_terms):
+                break
 
-        escaped_word = html.escape(word)
+        return best_start, best_end
 
-        if self._matches(
-            word,
-            raw_query_terms,
-            processed_query_terms
-        ):
-            return f"<mark>{escaped_word}</mark>"
+    def _format_word(self, word, raw_query_terms, processed_query_terms):
+        escaped = html.escape(word)
+        if self._matches(word, raw_query_terms, processed_query_terms):
+            return f"<mark>{escaped}</mark>"
+        return escaped
 
-        return escaped_word
-
-    def _matches(
-        self,
-        word,
-        raw_query_terms,
-        processed_query_terms
-    ):
-
-        tokens = TOKEN_PATTERN.findall(word)
-
-        for token in tokens:
-
-            normalized_token = token.lower()
-            stemmed_token = self.stemmer.stem(
-                normalized_token
-            )
-
-            if (
-                normalized_token in raw_query_terms
-                or stemmed_token in processed_query_terms
-            ):
+    def _matches(self, word, raw_query_terms, processed_query_terms):
+        for token in TOKEN_PATTERN.findall(word):
+            t = token.lower()
+            if t in raw_query_terms or self.stemmer.stem(t) in processed_query_terms:
                 return True
-
         return False

@@ -4,3 +4,6 @@ fastapi
 uvicorn
 scikit-learn
 nltk
+pytest
+pypdf
+aiohttp
