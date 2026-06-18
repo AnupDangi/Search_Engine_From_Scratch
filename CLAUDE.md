@@ -36,6 +36,15 @@ cd search_engine && python -m pytest tests/test_v2_0_core.py -v
 
 # Run a single test
 cd search_engine && python -m pytest tests/test_v2_0_core.py::test_database_and_incremental_flow -v
+
+# Bootstrap corpus for all topics (run from repo root)
+python search_engine/tools/seed_corpus.py --topic all --max-pages 500
+
+# Bootstrap corpus for specific topic
+python search_engine/tools/seed_corpus.py --topic movies_entertainment --max-pages 100
+
+# Bootstrap with specific domains
+python search_engine/tools/seed_corpus.py --domains https://www.imdb.com/ https://www.themoviedb.org/ --max-pages 100
 ```
 
 **API endpoints:**
