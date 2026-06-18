@@ -1,6 +1,6 @@
 # api/app.py
 
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Body
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
@@ -34,13 +34,22 @@ def health():
     }
 
 
+# How many pages a background fallback crawl pulls. Raised from 30 → curated
+# seeds are higher quality and PageRank only becomes meaningful with more pages.
+FALLBACK_MAX_PAGES = 120
+
+
 async def _discover_seed_urls(query: str, max_seeds: int = 8) -> list:
-    """Discover seed URLs from a text query via Wikipedia + DuckDuckGo."""
+    """Discover seed URLs for a query: curated registry first, then web fallback."""
     import requests
     from bs4 import BeautifulSoup
     import urllib.parse
+    from crawler.seed_registry import match_seeds
 
-    seed_urls = []
+    # Curated, intent-matched seeds lead so relevant docs/research sites win over
+    # Wikipedia-only discovery. Web fallback backfills the rest.
+    seed_urls = list(match_seeds(query, max_seeds=max_seeds))
+
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"}
     q_encoded = urllib.parse.quote(query)
 
@@ -121,7 +130,7 @@ async def _background_crawl(q: str):
         if not seed_urls:
             print(f"[FALLBACK] No seed URLs found for '{q}'.")
             return
-        await _run_crawl_pipeline(seed_urls, max_pages=30, label=" FALLBACK")
+        await _run_crawl_pipeline(seed_urls, max_pages=FALLBACK_MAX_PAGES, label=" FALLBACK")
     except Exception as e:
         print(f"[FALLBACK ERROR] {e}")
 
@@ -152,6 +161,7 @@ async def search(
             "pdfs": [],
             "images": [],
             "fallback_scheduled": True,
+            "fallback_triggered": True,
             "retry_after": 10,
         }
         await asyncio.to_thread(engine.db.log_query, q, 0)
@@ -167,6 +177,7 @@ async def search(
         "pdfs": pdf_results,
         "images": img_results,
         "fallback_scheduled": False,
+        "fallback_triggered": False,
     }
 
     # Log query and cache response
@@ -183,6 +194,17 @@ async def suggest(
 ):
     suggestions = await asyncio.to_thread(engine.db.get_suggestions, q)
     return {"suggestions": suggestions}
+
+
+@app.post("/track/click")
+async def track_click(payload: dict = Body(...)):
+    """Record a result click {query, url, position} for future click-based ranking."""
+    query = (payload.get("query") or "").strip()
+    url = (payload.get("url") or "").strip()
+    position = int(payload.get("position", 0) or 0)
+    if query and url:
+        await asyncio.to_thread(engine.db.log_click, query, url, position)
+    return {"ok": True}
 
 
 @app.get("/search/images")
@@ -1032,7 +1054,25 @@ def index_ui():
     <script>
         let currentTab = 'all';
         let searchData = null; // Cache search responses
+        let lastSearchedQuery = ''; // For click tracking
         let currentPage = 1;
+
+        // Click feedback — non-blocking POST so clicked results can inform future ranking.
+        function trackClick(url) {
+            if (!url || !lastSearchedQuery) return;
+            let position = 0;
+            const ranked = (searchData ? (searchData.web || []).concat(searchData.pdfs || []) : []);
+            const idx = ranked.findIndex(d => d.url === url || (d.html_file && url.endsWith(d.html_file)));
+            if (idx >= 0) position = idx + 1;
+            const body = JSON.stringify({query: lastSearchedQuery, url, position});
+            try {
+                if (navigator.sendBeacon) {
+                    navigator.sendBeacon('/track/click', new Blob([body], {type: 'application/json'}));
+                } else {
+                    fetch('/track/click', {method: 'POST', headers: {'Content-Type': 'application/json'}, body, keepalive: true});
+                }
+            } catch (e) { /* tracking is best-effort */ }
+        }
         const RESULTS_PER_PAGE = 10;
         let crawlPanelOpen = true;
 
@@ -1125,6 +1165,12 @@ def index_ui():
 
         searchBtn.addEventListener('click', triggerSearch);
 
+        // Delegated click tracking — fires for any result link carrying data-track-url.
+        resultsContainer.addEventListener('click', function(e) {
+            const a = e.target.closest('a[data-track-url]');
+            if (a) trackClick(a.getAttribute('data-track-url'));
+        });
+
         function switchTab(tab) {
             currentTab = tab;
             currentPage = 1;
@@ -1146,6 +1192,7 @@ def index_ui():
         async function performSearch() {
             const query = searchInput.value.trim();
             if (!query) return;
+            lastSearchedQuery = query;
 
             resultsContainer.innerHTML = '';
             statsLine.style.display = 'none';
@@ -1387,7 +1434,7 @@ def index_ui():
             return `
                 <div class="result-card ${docClass}">
                     <div class="result-header">
-                        <a href="${escapeHtml(targetLink)}" target="_blank" class="result-title-link">${escapeHtml(doc.title || 'Untitled Document')}</a>
+                        <a href="${escapeHtml(targetLink)}" target="_blank" class="result-title-link" data-track-url="${escapeHtml(doc.url)}">${escapeHtml(doc.title || 'Untitled Document')}</a>
                         <div class="meta-badges">
                             <span class="badge ${badgeClass}">${doc.doc_type || 'HTML'}</span>
                             <span class="badge score">Score: ${doc.score.toFixed(2)}</span>
@@ -1395,7 +1442,7 @@ def index_ui():
                     </div>
                     <div class="result-domain-line">
                         <span>🌐 ${escapeHtml(doc.domain || 'localhost')}</span>
-                        <a href="${escapeHtml(doc.url)}" target="_blank" class="result-url-text">${escapeHtml(doc.url)}</a>
+                        <a href="${escapeHtml(doc.url)}" target="_blank" class="result-url-text" data-track-url="${escapeHtml(doc.url)}">${escapeHtml(doc.url)}</a>
                     </div>
                     <p class="result-snippet">${doc.snippet || 'No snippet available.'}</p>
                     ${doc.author ? `
