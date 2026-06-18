@@ -87,8 +87,7 @@ def test_pdf_extraction_and_indexing(temp_workspace, monkeypatch):
         original_db_init(self, db_path=str(temp_path / "test_search.db"))
     monkeypatch.setattr(Database, "__init__", mock_db_init)
     
-    monkeypatch.setattr(process_documents, "db", db)
-    monkeypatch.setattr(db, "close", lambda: None)
+    monkeypatch.setattr(Database, "close", lambda self: None)
     
     # 5. Run process_documents
     process_documents.process_documents()
@@ -127,3 +126,14 @@ def test_pdf_extraction_and_indexing(temp_workspace, monkeypatch):
     assert results[0]["doc_id"] == 1
     assert results[0]["title"] == "Asyncio Notes"
     assert "asyncio event loops" in results[0]["snippet"]
+
+
+def test_cdn_hash_filename_filtered():
+    """CDN hash filenames and Sanity CDN paths should match _ICON_PATTERNS; descriptive names should not."""
+    from search.search_engine import _ICON_PATTERNS
+    assert _ICON_PATTERNS.search("ce798d3e23245678901234abcdef") is not None, \
+        "CDN hash should match ICON_PATTERNS"
+    assert _ICON_PATTERNS.search("cdn.sanity.io/images/abc123") is not None, \
+        "Sanity CDN path should match ICON_PATTERNS"
+    assert _ICON_PATTERNS.search("python-logo.png") is None, \
+        "python-logo.png should NOT match ICON_PATTERNS"

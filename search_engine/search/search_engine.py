@@ -46,7 +46,10 @@ _EDU_DOMAIN_PATTERNS = re.compile(
 # Penalise icon/favicon/sprite images — visually useless in results
 _ICON_PATTERNS = re.compile(
     r'(favicon|/icon[s]?[/_\-]|sprite|badge|button|logo\d|\.ico$|_icon\.|icon_|'
-    r'arrow|bullet|star\.png|rating|thumbnail_s)',
+    r'arrow|bullet|star\.png|rating|thumbnail_s|'
+    r'/static/images/icons/|'
+    r'[0-9a-f]{20,}|'
+    r'cdn\.sanity\.io)',
     re.I,
 )
 
@@ -87,6 +90,15 @@ _IMAGE_RANKER_B = {
     "image_url": 0.5,
     "filename": 0.5,
 }
+
+
+def _has_text_metadata(img: dict) -> bool:
+    """Return True if the image has at least one text metadata field populated."""
+    return bool(
+        img.get("alt_text", "").strip()
+        or img.get("surrounding_text", "").strip()
+        or img.get("page_title", "").strip()
+    )
 
 
 def _extract_domain(url: str) -> str:
@@ -437,6 +449,16 @@ class SearchEngine:
 
         # Build authority score per image using page_url domain
         img_rows_by_id = {row[0]: row for row in rows}
+
+        # Filter: drop images that have no textual metadata at all
+        img_rows_by_id = {
+            iid: row for iid, row in img_rows_by_id.items()
+            if _has_text_metadata({
+                "alt_text": row[3],
+                "surrounding_text": row[4],
+                "page_title": row[5],
+            })
+        }
 
         w = IMG_SCORE_WEIGHTS
         final_scores = {}

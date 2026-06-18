@@ -1,11 +1,21 @@
 from collections import defaultdict
 from pathlib import Path
 import json
+import re
 from urllib.parse import urlparse
 import datetime
 
 from indexing.tokenizer import TextPreprocessor
 from storage.database import Database
+
+# Detects filenames that are content-addressed hashes or UUIDs (≥16 hex chars / hex+dash)
+_HASH_PATTERN = re.compile(r'^[0-9a-f\-]{16,}$', re.I)
+
+
+def _is_hash_filename(name: str) -> bool:
+    """Return True if the filename stem looks like a CDN content hash or UUID."""
+    stem = re.sub(r'\.[a-z]{2,4}$', '', name.lower())
+    return bool(_HASH_PATTERN.match(stem))
 
 
 class IndexBuilder:
@@ -221,9 +231,13 @@ class IndexBuilder:
             url_tokens = self.preprocessor.process(img_url_text)
 
             # Extract and tokenize filename separately (e.g. "python-logo.png" → ["python", "logo"])
+            # Skip filename field if the stem looks like a CDN content hash / UUID — it carries no signal.
             raw_stem = Path(parsed_img_url.path).stem
-            filename_text = raw_stem.replace("-", " ").replace("_", " ")
-            filename_tokens = self.preprocessor.process(filename_text)
+            if _is_hash_filename(raw_stem):
+                filename_tokens = []
+            else:
+                filename_text = raw_stem.replace("-", " ").replace("_", " ")
+                filename_tokens = self.preprocessor.process(filename_text)
 
             self.image_doc_stats[str(img_id)] = {
                 "alt_text_length": len(alt_tokens),
