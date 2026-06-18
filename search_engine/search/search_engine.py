@@ -328,7 +328,8 @@ class SearchEngine:
         doc_type_pref = intent.get("doc_type_preference")
         domain_boost = intent.get("domain_boost")
         educational = intent.get("educational", False)
-        if doc_type_pref or domain_boost or educational:
+        movie_intent = intent.get("movie_intent", False)
+        if doc_type_pref or domain_boost or educational or movie_intent:
             for d, row in doc_meta.items():
                 key = str(d)
                 if key not in final_scores:
@@ -344,6 +345,9 @@ class SearchEngine:
                         final_scores[key] *= EDU_PDF_BOOST
                     elif _EDU_DOMAIN_PATTERNS.search(doc_url):
                         final_scores[key] *= EDU_DOMAIN_BOOST
+                if movie_intent:
+                    if any(d in doc_url for d in ("imdb.com", "themoviedb.org", "rottentomatoes.com")):
+                        final_scores[key] *= DOMAIN_INTENT_BOOST
 
         sorted_docs = sorted(final_scores.items(), key=lambda x: x[1], reverse=True)
 
