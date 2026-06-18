@@ -2,7 +2,10 @@ import sqlite3
 from threading import RLock
 from typing import Optional
 
-from storage.schema import DOCUMENTS_TABLE, IMAGES_TABLE, LINKS_TABLE, QUERY_LOGS_TABLE, QUERY_CACHE_TABLE
+from storage.schema import (
+    DOCUMENTS_TABLE, IMAGES_TABLE, LINKS_TABLE, QUERY_LOGS_TABLE,
+    QUERY_CACHE_TABLE, CLICK_LOGS_TABLE,
+)
 
 
 class Database:
@@ -51,6 +54,20 @@ class Database:
             self.cursor.execute(
                 QUERY_CACHE_TABLE
             )
+
+            self.cursor.execute(
+                CLICK_LOGS_TABLE
+            )
+
+            # ocr_text placeholder on images — OCR pipeline deferred (no Tesseract yet),
+            # column reserved so indexing can wire it in later without a schema break.
+            self.cursor.execute("PRAGMA table_info(images)")
+            cols_img2 = [col[1] for col in self.cursor.fetchall()]
+            if cols_img2 and "ocr_text" not in cols_img2:
+                try:
+                    self.cursor.execute("ALTER TABLE images ADD COLUMN ocr_text TEXT")
+                except sqlite3.OperationalError:
+                    pass
 
             # Alter documents table if missing author or doc_type columns
             self.cursor.execute("PRAGMA table_info(documents)")
@@ -349,11 +366,28 @@ class Database:
             self.cursor.execute("SELECT id, pagerank FROM documents")
             return dict(self.cursor.fetchall())
 
+    def get_inbound_link_counts(self) -> dict:
+        """Return dict of url -> inbound_link_count from the links table."""
+        with self.lock:
+            self.cursor.execute(
+                "SELECT target_url, COUNT(*) FROM links GROUP BY target_url"
+            )
+            return {row[0]: row[1] for row in self.cursor.fetchall()}
+
     def log_query(self, query: str, result_count: int) -> None:
         with self.lock:
             self.cursor.execute(
                 "INSERT INTO query_logs (query, result_count) VALUES (?, ?)",
                 (query.strip().lower(), result_count)
+            )
+            self.conn.commit()
+
+    def log_click(self, query: str, doc_url: str, position: int) -> None:
+        """Record that a user clicked `doc_url` at `position` for `query`."""
+        with self.lock:
+            self.cursor.execute(
+                "INSERT INTO click_logs (query, doc_url, position) VALUES (?, ?, ?)",
+                (query.strip().lower(), doc_url, position)
             )
             self.conn.commit()
 

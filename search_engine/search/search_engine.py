@@ -30,12 +30,48 @@ IMG_SCORE_WEIGHTS = {
     "authority": 0.10,
 }
 
+# ── Intent boost multipliers (tunable; validate changes via tests/run_search_quality.py) ──
+PDF_INTENT_BOOST = 1.5      # doc_type_preference == PDF and doc is a PDF
+DOMAIN_INTENT_BOOST = 1.5   # domain_boost (e.g. github/arxiv) matches doc URL
+EDU_PDF_BOOST = 1.6         # educational query + PDF — learners usually want notes/books
+EDU_DOMAIN_BOOST = 1.3      # educational query + documentation/edu domain
+
+# Documentation / education domains favoured for educational-intent queries.
+_EDU_DOMAIN_PATTERNS = re.compile(
+    r'(\.edu(/|$)|geeksforgeeks|tutorialspoint|realpython|w3schools|khanacademy|'
+    r'ocw\.mit\.edu|docs\.|developer\.|javascript\.info|/docs/)',
+    re.I,
+)
+
 # Penalise icon/favicon/sprite images — visually useless in results
 _ICON_PATTERNS = re.compile(
     r'(favicon|/icon[s]?[/_\-]|sprite|badge|button|logo\d|\.ico$|_icon\.|icon_|'
     r'arrow|bullet|star\.png|rating|thumbnail_s)',
     re.I,
 )
+
+# Curated domain trust scores (0.0–1.0). Used when PageRank is flat.
+_DOMAIN_TRUST = {
+    "en.wikipedia.org": 0.85,
+    "python.org": 0.90,
+    "docs.python.org": 0.95,
+    "github.com": 0.80,
+    "stackoverflow.com": 0.88,
+    "arxiv.org": 0.90,
+    "realpython.com": 0.82,
+    "developer.mozilla.org": 0.92,
+    "docs.djangoproject.com": 0.88,
+    "pytorch.org": 0.85,
+    "tensorflow.org": 0.85,
+    "huggingface.co": 0.83,
+    "geeksforgeeks.org": 0.75,
+    "tutorialspoint.com": 0.72,
+    "imdb.com": 0.82,
+    "wikipedia.org": 0.84,
+    "britannica.com": 0.80,
+    "medium.com": 0.60,
+    "towardsdatascience.com": 0.65,
+}
 
 _IMAGE_RANKER_WEIGHTS = {
     "alt_text": 4.0,
@@ -150,26 +186,48 @@ class SearchEngine:
         self._build_domain_authority()
 
     def _build_domain_authority(self):
-        """Compute mean PageRank per domain, cached in self.domain_authority."""
+        """
+        Hybrid domain authority: curated trust score + inbound link density.
+        Falls back gracefully when PageRank is flat (uniform distribution).
+        """
         try:
             with self.db.lock:
                 self.db.cursor.execute("SELECT url, pagerank FROM documents")
                 doc_rows = self.db.cursor.fetchall()
+            inbound = self.db.get_inbound_link_counts()
         except Exception:
             self.domain_authority = {}
             return
 
-        domain_prs: dict = defaultdict(list)
+        # Detect flat PageRank (all values nearly identical → useless signal)
+        pr_values = [pr for _, pr in doc_rows if pr and pr > 0]
+        pr_range = (max(pr_values) - min(pr_values)) if pr_values else 0.0
+        use_pagerank = pr_range > 1e-4  # only use PR if there's meaningful spread
+
+        domain_scores: dict = defaultdict(list)
         for url, pr in doc_rows:
-            if url:
-                d = _extract_domain(url)
-                if d:
-                    domain_prs[d].append(pr or 0.0)
+            if not url:
+                continue
+            d = _extract_domain(url)
+            if not d:
+                continue
+
+            # Base score: curated trust or 0.5
+            base = _DOMAIN_TRUST.get(d, 0.5)
+
+            # Inbound signal: normalize by log scale
+            inbound_count = inbound.get(url, 0)
+            inbound_signal = math.log1p(inbound_count) / 10.0  # cap at ~0.46 for 100 links
+
+            # PageRank signal (only if meaningful spread exists)
+            pr_signal = pr if (use_pagerank and pr) else 0.0
+
+            score = 0.5 * base + 0.3 * min(inbound_signal, 1.0) + 0.2 * pr_signal
+            domain_scores[d].append(score)
 
         self.domain_authority = {
-            d: sum(prs) / len(prs)
-            for d, prs in domain_prs.items()
-            if prs
+            d: sum(scores) / len(scores)
+            for d, scores in domain_scores.items()
         }
 
     def _doc_authority(self, doc_id: int, doc_url: str) -> float:
@@ -269,7 +327,8 @@ class SearchEngine:
         # Apply intent boosts
         doc_type_pref = intent.get("doc_type_preference")
         domain_boost = intent.get("domain_boost")
-        if doc_type_pref or domain_boost:
+        educational = intent.get("educational", False)
+        if doc_type_pref or domain_boost or educational:
             for d, row in doc_meta.items():
                 key = str(d)
                 if key not in final_scores:
@@ -277,9 +336,14 @@ class SearchEngine:
                 doc_type = row[5]
                 doc_url = row[2]
                 if doc_type_pref and doc_type == doc_type_pref:
-                    final_scores[key] *= 1.5  # boosted from 1.3
+                    final_scores[key] *= PDF_INTENT_BOOST
                 if domain_boost and domain_boost in doc_url:
-                    final_scores[key] *= 1.5
+                    final_scores[key] *= DOMAIN_INTENT_BOOST
+                if educational:
+                    if doc_type == "PDF":
+                        final_scores[key] *= EDU_PDF_BOOST
+                    elif _EDU_DOMAIN_PATTERNS.search(doc_url):
+                        final_scores[key] *= EDU_DOMAIN_BOOST
 
         sorted_docs = sorted(final_scores.items(), key=lambda x: x[1], reverse=True)
 
