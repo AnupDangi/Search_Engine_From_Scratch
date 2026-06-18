@@ -33,7 +33,10 @@ def _tokens(text: str) -> list[str]:
 
 
 def _stem_keywords(kws: list) -> set:
-    return {_stemmer.stem(k) for k in kws}
+    result = set()
+    for k in kws:
+        result.update(_tokens(k))
+    return result
 
 
 # topic -> {"keywords": list of trigger tokens, "seeds": ordered seed URLs}
