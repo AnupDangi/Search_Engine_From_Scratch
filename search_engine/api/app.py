@@ -208,7 +208,7 @@ async def track_click(payload: dict = Body(...)):
 
 
 @app.get("/search/images")
-def search_images(
+async def search_images(
     q: str = Query(
         ...,
         min_length=1,
@@ -221,10 +221,7 @@ def search_images(
         description="Maximum number of results"
     )
 ):
-    results = engine.search_images(
-        q,
-        limit=limit
-    )
+    results = await asyncio.to_thread(engine.search_images, q, limit)
     return {
         "query": q,
         "count": len(results),

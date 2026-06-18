@@ -11,7 +11,7 @@ _PDF_KEYWORDS = frozenset([
 _IMAGE_KEYWORDS = frozenset([
     "image", "photo", "picture", "diagram", "chart", "graph",
     "screenshot", "logo", "icon", "illustration", "poster",
-    "architecture diagram", "flowchart", "wallpaper",
+    "architecture", "flowchart", "wallpaper",
 ])
 
 _EDUCATIONAL_KEYWORDS = frozenset([
