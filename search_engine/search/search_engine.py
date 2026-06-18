@@ -392,6 +392,109 @@ class SearchEngine:
 
         # Re-merge: preserve relative score order across both types
         combined = sorted(html_results + pdf_results, key=lambda r: r["score"], reverse=True)
+
+        # ── Query relaxation fallback ──────────────────────────────────────────
+        # If the normal pipeline returned nothing and the query had >1 term,
+        # retry with only the most specific term (lowest document frequency).
+        # This prevents hard failures when one exotic term isn't in the index.
+        if not combined and len(query_terms) > 1:
+            best_term = min(
+                query_terms,
+                key=lambda t: max(self.index_reader.get_df(t), 1)
+            )
+            fallback_candidates = self.retriever.retrieve([best_term])
+            if fallback_candidates:
+                fb_component_scores = self.ranker.score(query_terms, fallback_candidates)
+                if fb_component_scores:
+                    fb_doc_ids = [int(d) for d in fb_component_scores]
+                    fb_rows = self.db.get_documents_by_ids_with_crawled_at(fb_doc_ids)
+                    fb_doc_meta = {row[0]: row for row in fb_rows}
+
+                    fb_bm25f_raw = {d: v[0] for d, v in fb_component_scores.items()}
+                    fb_pp_raw = {d: v[1] for d, v in fb_component_scores.items()}
+                    fb_authority_raw = {
+                        d: self._doc_authority(int(d), fb_doc_meta.get(int(d), [None, None, ""])[2] or "")
+                        for d in fb_component_scores
+                    }
+
+                    fb_freshness_scores = {}
+                    fb_url_match_scores = {}
+                    for d, row in fb_doc_meta.items():
+                        crawled_at = row[8]
+                        fb_freshness_scores[str(d)] = _freshness(crawled_at)
+                        doc_url = row[2]
+                        parsed = urlparse(doc_url)
+                        url_text = f"{parsed.netloc} {parsed.path}"
+                        url_tokens = set(self.query_processor.process(url_text))
+                        matched = len(set(query_terms) & url_tokens)
+                        fb_url_match_scores[str(d)] = matched / len(query_terms) if query_terms else 0.0
+
+                    fb_bm25f_n = _normalize(fb_bm25f_raw)
+                    fb_pp_n = _normalize(fb_pp_raw)
+                    fb_auth_n = _normalize(fb_authority_raw)
+
+                    w = DOC_SCORE_WEIGHTS
+                    fb_final_scores = {}
+                    for d in fb_component_scores:
+                        fb_final_scores[d] = (
+                            w["bm25f"] * fb_bm25f_n.get(d, 0.0)
+                            + w["phrase_prox"] * fb_pp_n.get(d, 0.0)
+                            + w["authority"] * fb_auth_n.get(d, 0.0)
+                            + w["freshness"] * fb_freshness_scores.get(str(d), 0.5)
+                            + w["url_match"] * fb_url_match_scores.get(str(d), 0.0)
+                        )
+
+                    # Apply the same intent boosts
+                    if doc_type_pref or domain_boost or educational or movie_intent:
+                        for d, row in fb_doc_meta.items():
+                            key = str(d)
+                            if key not in fb_final_scores:
+                                continue
+                            doc_type = row[5]
+                            doc_url = row[2]
+                            if doc_type_pref and doc_type == doc_type_pref:
+                                fb_final_scores[key] *= PDF_INTENT_BOOST
+                            if domain_boost and domain_boost in doc_url:
+                                fb_final_scores[key] *= DOMAIN_INTENT_BOOST
+                            if educational:
+                                if doc_type == "PDF":
+                                    fb_final_scores[key] *= EDU_PDF_BOOST
+                                elif _EDU_DOMAIN_PATTERNS.search(doc_url):
+                                    fb_final_scores[key] *= EDU_DOMAIN_BOOST
+                            if movie_intent:
+                                if any(dm in doc_url for dm in ("imdb.com", "themoviedb.org", "rottentomatoes.com")):
+                                    fb_final_scores[key] *= DOMAIN_INTENT_BOOST
+
+                    fb_sorted = sorted(fb_final_scores.items(), key=lambda x: x[1], reverse=True)
+                    fb_score_lookup = {int(d): s for d, s in fb_sorted}
+
+                    fb_results = []
+                    for doc_id in [int(d) for d, _ in fb_sorted]:
+                        row = fb_doc_meta.get(doc_id)
+                        if not row:
+                            continue
+                        content = row[3]
+                        snippet = self.snippet_generator.generate(content, best_term, [best_term])
+                        fb_results.append({
+                            "doc_id": row[0],
+                            "title": row[1],
+                            "url": row[2],
+                            "domain": _extract_domain(row[2]),
+                            "score": fb_score_lookup.get(doc_id, 0.0),
+                            "snippet": snippet,
+                            "author": row[4],
+                            "doc_type": row[5],
+                            "html_file": row[6],
+                            "rewrite_note": f"Showing results for: {best_term}",
+                        })
+
+                    fb_html = _diversify(
+                        [r for r in fb_results if r.get("doc_type", "HTML") == "HTML"],
+                        max_per_domain=3,
+                    )
+                    fb_pdf = [r for r in fb_results if r.get("doc_type") == "PDF"]
+                    combined = sorted(fb_html + fb_pdf, key=lambda r: r["score"], reverse=True)
+
         return combined[:limit]
 
     # ── Image search ───────────────────────────────────────────────────────────
