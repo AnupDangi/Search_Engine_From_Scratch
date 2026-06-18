@@ -74,6 +74,8 @@ class BM25Ranker:
 
                     len_f = doc_stats.get(f"{field}_length", 0)
                     avg_len_f = avg_lens.get(field, 0.0)
+                    if avg_len_f < 0.5:  # field is essentially empty corpus-wide
+                        continue         # skip this field to avoid noisy normalization
                     b_f = self.b_map.get(field, 0.75)
 
                     len_norm = 1.0 - b_f + b_f * (len_f / avg_len_f if avg_len_f > 0 else 0.0)
